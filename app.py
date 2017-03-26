@@ -136,7 +136,7 @@ def global_():
 
 if __name__ == '__main__':
     app.config['SESSION_TYPE'] = 'mongodb'
-    app.secret_key = 'secret!!!'
+    app.config['SECRET_KEY'] = 'secret!!!'
     app.run(debug=True)
 
 """
