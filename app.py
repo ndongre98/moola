@@ -3,7 +3,7 @@ Routes and views for the flask application.
 """
 from flask import Flask, render_template, url_for, request, session, redirect
 import pymongo
-#import bcrypt
+import bcrypt
 import json
 import datetime
 """import app"""
@@ -18,7 +18,7 @@ mongo.authenticate('moola_user', 'th2017')
 @app.route('/')
 def index():
     if 'username' in session:
-        return redirect(url_for('loggedin'))
+        return redirect(url_for('personal'))
     return render_template('index.html')
 
 @app.route('/personal', methods=['POST', 'GET'])
