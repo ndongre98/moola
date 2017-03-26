@@ -1,25 +1,33 @@
-"""
-Routes and views for the flask application.
-"""
 from flask import Flask, render_template, url_for, request, session, redirect
 import pymongo
 import bcrypt
 import json
 import datetime
-"""import app"""
+#from flask_pymongo import PyMongo
 
 app = Flask(__name__)
 
+connection = pymongo.MongoClient('ds131320.mlab.com', 31320)
+mongo = connection['moola']
+mongo.authenticate('moola_user', 'th2017')
 
-"""log-in stuff"""
+#app.config['MONGO_DBNAME'] = 'moola'
+#app.config['MONGO_HOST']
+#app.config['MONGO_URI'] = 'mongodb://moola_user:h2017@ds131320.mlab.com:31320/moola'
+
+#mongo = PyMongo(app)
+
+app = Flask(__name__)
+
 @app.route('/')
 def index():
     if 'username' in session:
         return redirect(url_for('loggedin'))
+
     return render_template('index.html')
 
-@app.route('/personal', methods=['POST', 'GET'])
-def personal():
+@app.route('/loggedin', methods=['POST', 'GET'])
+def loggedin():
     if request.method == 'POST':
         balance = mongo.db.users.distinct('balance', {'username' : session['username']})
         if 'deposit' in request.form:
@@ -64,7 +72,7 @@ def personal():
         d[0] = (((datetime.datetime.strptime(d[0], '%Y-%m-%d'))-datetime.datetime(1970,1,1)).total_seconds()) * 1000
     with open("static/deposits.JSON", 'w') as outfile:
         json.dump(depos, outfile)
-    return render_template('personal.html', balance = mongo.db.users.distinct('balance', {'username' : session['username']})) 
+    return render_template('loggedin.html', balance = mongo.db.users.distinct('balance', {'username' : session['username']})) 
 
 @app.route('/logout')
 def logout():
@@ -103,47 +111,6 @@ def register():
         return 'That username already exists!'
     return render_template('register.html')
 
-
-"""account stuff"""
-@app.route('/home')
-def home():
-    """Renders the home page."""
-    return render_template(
-        'home.html',
-        title='Home Page',
-        year=datetime.now().year,
-    )
-
-"""@app.route('/personal')
-def personal():
-    #Renders the contact page.
-    return render_template(
-        'personal.html',
-        title='Personal',
-        year=datetime.now().year,
-        message='Personal Finance'
-    )"""
-
-@app.route('/global')
-def global_():
-    #Renders the about page.
-    return render_template(
-        'global.html',
-        title='Global',
-        year=datetime.now().year,
-        message='Global Finance'
-    )
-
-
 if __name__ == '__main__':
    app.secret_key = 'secret!!!'
    app.run(debug=True)
-   
-"""
-app = Flask(__name__)
-@app.route('/')
-def index():
-    return render_template('yahoofinance.html')
-if __name__ == '__main__':
-   app.run(debug=True, host='0.0.0.0')
-"""

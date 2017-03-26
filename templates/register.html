@@ -1,0 +1,49 @@
+{% extends "layout.html"%}
+{% block body%}
+<div class = "container">
+    <div class = "row">
+        <div class = "col-md-4 col-md-offset-4">
+            <form method = POST action = "{{ url_for('register') }}">
+                <div class = "form-group">
+                    <label for = "inputFName">First Name</label>
+                    <input type = "text" class = "form-control" name = "fname" placeholder = "First Name">
+                </div>
+                <div class = "form-group">
+                    <label for = "inputlname">Last Name</label>
+                    <input type = "text" class = "form-control" name = "lname" placeholder = "Last Name">
+                </div>
+                <div class = "form-group">
+                    <label for = "inputUser">Username</label>
+                    <input type = "text" class = "form-control" name = "username" placeholder = "Username">
+                </div>
+                <div class = "form-group">
+                    <label for = "inputAddNum">Street Number</label>
+                    <input type = "number" class = "form-control" name = "hnum" placeholder = "000">
+                </div>
+                <div class = "form-group">
+                    <label for = "inputStreet">Street Name</label>
+                    <input type = "text" class = "form-control" name = "street" placeholder = "street">
+                </div>
+                <div class = "form-group">
+                    <label for = "inputCity">City</label>
+                    <input type = "text" class = "form-control" name = "city" placeholder = "city">
+                </div>
+                <div class = "form-group">
+                    <label for = "inputState">State</label>
+                    <input type = "text" class = "form-control" name = "state" placeholder = "state">
+                </div>
+                <div class = "form-group">
+                    <label for = "inputZip">Zip Code</label>
+                    <input type = "number" class = "form-control" name = "zip" placeholder = "00000">
+                </div>
+                <div class = "form-group">
+                    <label for = "inputPass">Password</label>
+                    <input type = "password" class = "form-control" name = "pass" placeholder = "Password">
+                </div>
+                <button type = "submit" class = "btn btn-primary btn-block">Log In</button>
+            </form>
+            <br>
+        </div>
+    </div>
+</div>
+{% endblock%}
