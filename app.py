@@ -13,7 +13,6 @@ connection = pymongo.MongoClient('ds131320.mlab.com', 31320)
 mongo = connection['moola']
 mongo.authenticate('moola_user', 'th2017')
 
-app.secret_key = 'secret!!!'
 
 """log-in stuff"""
 @app.route('/')
@@ -135,10 +134,10 @@ def global_():
         message='Global Finance'
     )
 
-
-#if __name__ == '__main__':
-   #app.secret_key = 'secret!!!'
- #  app.run(debug=True)
+if __name__ == '__main__':
+    app.secret_key = 'secret!!!'
+    app.config['SESSION_TYPE'] = 'mongodb'
+    app.run(debug=True)
 
 """
 app = Flask(__name__)
