@@ -134,10 +134,10 @@ def global_():
         message='Global Finance'
     )
 
-if __name__ == '__main__':
-    app.config['SESSION_TYPE'] = 'mongodb'
-    app.config['SECRET_KEY'] = 'secret!!!'
-    app.run(debug=True)
+#if __name__ == '__main__':
+app.config['SESSION_TYPE'] = 'mongodb'
+app.config['SECRET_KEY'] = 'secret!!!'
+app.run(debug=True)
 
 """
 app = Flask(__name__)
