@@ -4,7 +4,7 @@ Routes and views for the flask application.
 from flask import Flask, render_template, url_for, request, session, redirect
 import pymongo
 import json
-import datetime
+from datetime import datetime
 """import app"""
 
 app = Flask(__name__)
