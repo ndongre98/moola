@@ -67,7 +67,7 @@
                           cache:false
                         });
 
-                        $.getJSON('static/deposits.JSON',function (data) {
+                        $.getJSON('static/json/deposits.JSON',function (data) {
                             $('#deposits').highcharts({
                                 chart: {
                                     type: 'column'
@@ -131,7 +131,7 @@
                           cache:false
                         });
 
-                        $.getJSON('static/withdrawals.JSON',function (data) {
+                        $.getJSON('static/json/withdrawals.JSON',function (data) {
                             $('#withdrawals').highcharts({
                                 chart: {
                                     type: 'column'
@@ -189,7 +189,7 @@
 
                     </script>
 
-                    <form method = POST action = "{{ url_for('loggedin') }}">
+                    <form method = POST action = "{{ url_for('personal') }}">
                         <div class = "form-group">
                             <label for = "inputDDate">Date</label>
                             <input type = "date" class = "form-control" name = "ddate">
