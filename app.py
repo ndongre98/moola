@@ -141,10 +141,10 @@ def global_():
 app.secret_key = '0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 
 #if __name__ == '__main__':
-port = int(os.environ.get("PORT", 5000))
+#port = int(os.environ.get("PORT", 5000))
 app.config['SESSION_TYPE'] = 'mongodb'
 	#app.config['SECRET_KEY'] = 'secret!!!'
-app.run(debug=True, port=port)
+app.run(debug=True)
 
 """
 app = Flask(__name__)
