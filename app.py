@@ -139,6 +139,7 @@ if __name__ == '__main__':
 	port = int(os.environ.get("PORT", 5000))
 	app.config['SESSION_TYPE'] = 'mongodb'
 	app.config['SECRET_KEY'] = 'secret!!!'
+	app.secret_key = 'secret!!!'
 	app.run(debug=True, port=port)
 
 """
