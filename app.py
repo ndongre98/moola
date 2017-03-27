@@ -4,7 +4,7 @@ Routes and views for the flask application.
 from flask import Flask, render_template, url_for, request, session, redirect
 import pymongo
 import json
-from datetime import datetime
+import datetime
 """import app"""
 
 app = Flask(__name__)
@@ -134,10 +134,10 @@ def global_():
         message='Global Finance'
     )
 
-#if __name__ == '__main__':
-app.config['SESSION_TYPE'] = 'mongodb'
-app.config['SECRET_KEY'] = 'secret!!!'
-app.run(debug=True)
+if __name__ == '__main__':
+	app.config['SESSION_TYPE'] = 'mongodb'
+	app.config['SECRET_KEY'] = 'secret!!!'
+	app.run(debug=True)
 
 """
 app = Flask(__name__)
