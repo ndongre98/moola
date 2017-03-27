@@ -6,8 +6,8 @@ import pymongo
 import json
 import datetime
 import os
-"""import app"""
 
+"""import app"""
 app = Flask(__name__)
 
 connection = pymongo.MongoClient('ds131320.mlab.com', 31320)
@@ -135,12 +135,13 @@ def global_():
         message='Global Finance'
     )
 
-if __name__ == '__main__':
-	port = int(os.environ.get("PORT", 5000))
-	app.config['SESSION_TYPE'] = 'mongodb'
+app.secret_key = '0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
+
+#if __name__ == '__main__':
+port = int(os.environ.get("PORT", 5000))
+app.config['SESSION_TYPE'] = 'mongodb'
 	#app.config['SECRET_KEY'] = 'secret!!!'
-	app.secret_key = '0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
-	app.run(debug=True, port=port)
+app.run(debug=True, port=port)
 
 """
 app = Flask(__name__)
