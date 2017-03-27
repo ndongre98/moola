@@ -138,8 +138,8 @@ def global_():
 if __name__ == '__main__':
 	port = int(os.environ.get("PORT", 5000))
 	app.config['SESSION_TYPE'] = 'mongodb'
-	app.config['SECRET_KEY'] = 'secret!!!'
-	app.secret_key = 'secret!!!'
+	#app.config['SECRET_KEY'] = 'secret!!!'
+	app.secret_key = '0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 	app.run(debug=True, port=port)
 
 """
