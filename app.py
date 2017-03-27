@@ -22,6 +22,7 @@ def index():
         return redirect(url_for('personal'))
     return render_template('index.html')
 
+"""
 @app.route('/personal', methods=['POST', 'GET'])
 def personal():
     if request.method == 'POST':
@@ -69,6 +70,7 @@ def personal():
     with open("static/deposits.JSON", 'w') as outfile:
         json.dump(depos, outfile)
     return render_template('personal.html', balance = mongo.db.users.distinct('balance', {'username' : session['username']})) 
+"""
 
 @app.route('/logout')
 def logout():
@@ -86,6 +88,7 @@ def login():
             return redirect(url_for('index'))
     return 'Invalid username/password combination'
 
+"""
 @app.route('/register', methods=['POST', 'GET'])
 def register():
     if request.method == 'POST':
@@ -103,7 +106,7 @@ def register():
             return redirect(url_for('index'))       
         return 'That username already exists!'
     return render_template('register.html')
-
+"""
 
 """account stuff"""
 @app.route('/home')
