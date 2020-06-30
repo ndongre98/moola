@@ -7,9 +7,11 @@ import datetime
 
 app = Flask(__name__)
 
-connection = pymongo.MongoClient('ds131320.mlab.com', 31320)
-mongo = connection['moola']
-mongo.authenticate('moola_user', 'th2017')
+connection = pymongo.MongoClient('mongodb+srv://admin:hello!@moola.wwfq4.mongodb.net/sample?retryWrites=true&w=majority')
+print("connected!!")
+
+# mongo = connection['moola']
+# mongo.authenticate('moola_user', 'th2017')
 
 #app.config['MONGO_DBNAME'] = 'moola'
 #app.config['MONGO_HOST']
