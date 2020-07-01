@@ -11,7 +11,6 @@ users = db.users
 # }
 # people.insert_one(sampleUser)
 
-
 app = Flask(__name__)
 
 @app.route('/')
@@ -24,7 +23,6 @@ def index():
 
 @app.route('/login', methods=['POST'])
 def login():
-    users = db.users
     login_user = users.find_one({'username' : request.form['username']})
 
     if login_user:
@@ -34,5 +32,16 @@ def login():
         # if request.form['pass'] == login_user['password']: 
         #     session['username'] = request.form['username']
         #     return redirect(url_for('index'))
+
+    #TODO: Have some sort of logic to let user know the username/password was invalid
     print("Cannot find user")
     return 'Invalid username/password combination'
+
+
+
+
+
+
+
+
+

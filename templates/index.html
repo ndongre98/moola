@@ -1,20 +1,27 @@
 {% extends "layout.html"%}
 {% block body%}
-<div class = "container">
-    <div class = "row">
-        <div class = "col-md-4 col-md-offset-4">
-            <form method=POST action="{{ url_for('login') }}">
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Username</label>
-                    <input type="text" class="form-control" name="username" placeholder="Username">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" name="pass" placeholder="Password">
-                </div>
-                <button type="submit" class="btn btn-primary btn-block">Log In</button>
-            </form>
-            <br>
+<div class="container-fluid remove-padding">
+    <div class="row content text-center remove-margin align-items-center">
+        <div class="col-md-6 logo-space remove-padding">
+            <h1>moola</h1>
+        </div>
+        <div class="col-md-6">
+            <div class="form-content">
+                <h2>sign in</h2>
+                <form method=POST action="{{ url_for('login') }}">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="username" placeholder="Enter your username">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" name="password" placeholder="Enter your password">
+                    </div>
+                    <button type="submit" class="btn btn-warning btn-block">Log In</button>
+                </form>
+                <form style="margin-top:20px">
+                    <label>Don't have an account?</label>
+                    <button type="submit" class="btn btn-success btn-block">Register</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
