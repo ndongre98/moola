@@ -1,0 +1,52 @@
+.navbar-custom {
+    background-color: #02C72D!important;
+}
+/* change the brand and text color */
+.navbar-custom .navbar-brand,
+.navbar-custom .navbar-text {
+    color: white;
+	font-family: 'M PLUS Rounded 1c', sans-serif;
+	font-size: 36px;
+}
+/* change the link color */
+.navbar-custom .navbar-nav .nav-link {
+    color: rgba(0,0,0,.5);
+}
+/* change the color of active or hovered links */
+.navbar-custom .nav-item.active .nav-link,
+.navbar-custom .nav-item:hover .nav-link {
+    color: red;
+}
+
+.container-custom {
+	margin-left: 75px!important;
+	margin-right: 75px!important;
+}
+
+.select-form {
+	height: fit-content;
+	margin-top: 50px;
+}
+
+.select-form form {
+	width: 100%;
+}
+
+.select-form div {
+	width: 100%;
+}
+
+.select-form select {
+	width: 100%;
+	border: 1px solid black;
+}
+
+.btn {
+	border-radius: 30px;
+	width: 200px;
+}
+
+
+.nav-item .dropdown-menu {
+	margin-left: 20px;
+}

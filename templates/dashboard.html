@@ -1,0 +1,116 @@
+{% extends "layout.html"%}
+{% block body%}
+<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-custom">
+    <a href="###" class="navbar-brand d-flex w-50 mr-auto" style="margin-left: 30px">moola</a>
+    <ul class="navbar-nav ml-auto w-100 justify-content-end" style="margin-right: 50px">
+        <li class="nav-item dropdown btn btn-light">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ session["username"] }}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Log Out</a>
+            </div>
+        </li>
+    </ul>
+</nav>
+<div class="container container-custom">
+	<div class="row">
+		<div class="col-md-6">
+            <div class="row select-form">
+                <form>
+                    <div class="form-group">
+                        <select class="form-control selectpicker" 
+                                multiple 
+                                title="Select stocks of interest"
+                                data-live-search="true">
+                          <option data-tokens="google">Google</option>
+                          <option data-tokens="apple">Apple</option>
+                          <option data-tokens="tesla">Tesla</option>
+                          <option data-tokens="shopify">Shopify</option>
+                          <option data-tokens="bny mellon">BNY Mellon</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="row" style="height: 350px">
+                <div id="graph-container">
+
+                </div>
+            </div>
+		</div>
+		<div class="col-md-3">
+			<div id="positivity-graph-container">
+
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div id="sentiment-graph-container">
+
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+    // Create deposits chart
+    $.ajaxSetup({
+      cache:false
+    });
+
+    $.getJSON('static/deposits.JSON',function (data) {
+        $('#graph-container').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Account Deposit'
+            },
+            
+            xAxis: {
+                ordinal: true,
+                type: 'datetime',
+                dateTimeLabelFormats: {
+                    day: '%m/%d/%Y'
+                }
+            },
+
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Deposit Amount ($)',
+                    align: 'high'
+                },
+                labels: {
+                    overflow: 'justify'
+                }
+            },
+            
+            plotOptions: {
+                bar: {
+                    dataLabels: {
+                        enabled: true
+                    }
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top',
+                x: -40,
+                y: 100,
+                floating: true,
+                borderWidth: 1,
+                backgroundColor: '#FFFFFF',
+                shadow: true
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'Deposit Amount',
+                data: data
+            }]
+        });
+    });
+        
+</script>
+{% endblock%}
