@@ -5,11 +5,7 @@ import pymongo
 client = pymongo.MongoClient('mongodb+srv://admin:hello@moola.wwfq4.mongodb.net/sample?retryWrites=true&w=majority')
 db = client.db
 users = db.users
-# sampleUser = {
-#   "username": "sample",
-#   "password": "password",
-# }
-# people.insert_one(sampleUser)
+stocks = db.stocks
 
 app = Flask(__name__)
 app.secret_key = b'9\xbb\xa7\xac\xac\xbci?\xe4\xc3\x13\xb8y\xf0\xd2!'
