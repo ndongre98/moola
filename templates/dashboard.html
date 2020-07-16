@@ -14,38 +14,39 @@
     </ul>
 </nav>
 <div class="container container-custom">
-	<div class="row">
+	<div class="row align-items-center">
 		<div class="col-md-6">
             <div class="row select-form">
-                <form>
+                <form method=GET>
                     <div class="form-group">
-                        <select class="form-control selectpicker" 
-                                multiple 
+                        <select class="form-control selectpicker"
+                                name="query_select" 
                                 title="Select stocks of interest"
+                                id="query_select"
                                 data-live-search="true">
-                          <option data-tokens="google">Google</option>
-                          <option data-tokens="apple">Apple</option>
-                          <option data-tokens="tesla">Tesla</option>
-                          <option data-tokens="shopify">Shopify</option>
-                          <option data-tokens="bny mellon">BNY Mellon</option>
+                          <option data-tokens="google" value="google">Google</option>
+                          <option data-tokens="apple" value="apple">Apple</option>
+                          <option data-tokens="tesla" value="tesla">Tesla</option>
+                          <option data-tokens="shopify" value="shopify">Shopify</option>
+                          <option data-tokens="bny mellon" value="bny mellon">BNY Mellon</option>
                         </select>
                     </div>
                 </form>
             </div>
-            <div class="row" style="height: 350px">
-                <div id="graph-container">
-
+            <div class="row text-center">
+                <div id="graph-container" style="width: 90%; height: 300px; margin: auto">
                 </div>
             </div>
 		</div>
-		<div class="col-md-3">
+		<div class="col-md-4 text-center">
 			<div id="positivity-graph-container">
-
+                <p id="stuff">
+                </p>
 			</div>
 		</div>
-		<div class="col-md-3">
+		<div class="col-md-2 text-center">
 			<div id="sentiment-graph-container">
-
+                <span class="circle"></span>
 			</div>
 		</div>
 	</div>
@@ -54,6 +55,52 @@
     // Create deposits chart
     $.ajaxSetup({
       cache:false
+    });
+
+    $(function() {
+        $('select#query_select').bind('change', function() {
+          $.getJSON($SCRIPT_ROOT + '/query_stock_sentiment', {
+            query: $('select[name="query_select"]').val(),
+          }, function(data) {
+            values = [data['sadness'], data['joy'], data['fear'], data['disgust'], data['anger']];
+            $('#sentiment-graph-container').append(data["sentiment"])
+
+            $('#positivity-graph-container').highcharts({
+                chart: {
+                    polar: true,
+                    type: "area",
+                },
+                title: {
+                    text: 'Emotional Analysis'
+                },
+                xAxis: {
+                    categories: ['Sadness', 'Joy', 'Fear', 'Disgust',
+                        'Anger'],
+                    tickmarkPlacement: 'on',
+                    lineWidth: 0
+                },
+                yAxis: {
+                    gridLineInterpolation: 'polygon',
+                    lineWidth: 0,
+                    min: 0
+                },
+                tooltip: {
+                    shared: true,
+                    pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y:,.00f}</b><br/>'
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    showInLegend: false, 
+                    name: 'Emotional Analysis',
+                    data: values,
+                    fillOpacity: 1.0,
+                }],
+            });
+          });
+          return false;
+        });
     });
 
     $.getJSON('static/deposits.JSON',function (data) {
@@ -108,7 +155,8 @@
             series: [{
                 name: 'Deposit Amount',
                 data: data
-            }]
+            }],
+
         });
     });
         

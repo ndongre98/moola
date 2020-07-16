@@ -4,6 +4,7 @@ import json
 from ibm_watson import NaturalLanguageUnderstandingV1
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 from ibm_watson.natural_language_understanding_v1 import Features, KeywordsOptions
+from datetime import datetime as dt
 import numpy as np
 
 def get_search_results(url):
@@ -41,7 +42,7 @@ def get_avg_scores(avg_scores_list):
 def conv_to_json(scores, query):
 	return {
 		"name" : query, 
-		"date" : 1,
+		"date" : dt.now(),
 		"sentiment" : scores[0],
 		"sadness" : scores[1],
 		"joy" : scores[2],

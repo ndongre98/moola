@@ -1,11 +1,8 @@
-from flask import Flask, abort, redirect, url_for, render_template, request, session
+from flask import Flask, abort, redirect, url_for, render_template, request, session, jsonify
 from datetime import datetime as dt
 import pymongo
-
-client = pymongo.MongoClient('mongodb+srv://admin:hello@moola.wwfq4.mongodb.net/sample?retryWrites=true&w=majority')
-db = client.db
-users = db.users
-stocks = db.stocks
+import db
+import json
 
 app = Flask(__name__)
 app.secret_key = b'9\xbb\xa7\xac\xac\xbci?\xe4\xc3\x13\xb8y\xf0\xd2!'
@@ -21,10 +18,7 @@ def index():
 #TODO: password encryption
 @app.route('/login', methods=['POST'])
 def login():
-    login_user = users.find_one({'username' : request.form['username']})
-
-    if login_user:
-    	print("found user!")
+    if (db.findUser(request.form['username'])):
     	session['username'] = request.form['username']
     	return redirect(url_for('dashboard'))
         #hashed = request.form['pass'].encode('utf-8')
@@ -49,6 +43,12 @@ def dashboard():
 	return "User not logged in"
 
 
+@app.route('/query_stock_sentiment')
+def query_stock_sentiment():
+    query = request.args.get("query", '', type=str).lower()
+    response = db.getSentiment(query)
+    del response["_id"]
+    return json.dumps(response, default=str)
 
 
 

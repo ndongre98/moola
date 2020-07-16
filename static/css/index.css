@@ -35,3 +35,7 @@ h2 {
 	align-items: center;
 	justify-content: center;
 }
+
+.form-content .btn {
+	width: 100%!important;
+}

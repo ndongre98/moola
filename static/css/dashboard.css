@@ -19,8 +19,8 @@
 }
 
 .container-custom {
-	margin-left: 75px!important;
-	margin-right: 75px!important;
+	margin-left: 50px!important;
+	margin-right: 50px!important;
 }
 
 .select-form {
@@ -50,3 +50,27 @@
 .nav-item .dropdown-menu {
 	margin-left: 20px;
 }
+
+
+#positivity-graph-container {
+	width: 90%;
+	height: 300px;
+	margin: auto;
+	margin-top: 100px;
+}
+
+.circle {
+	height: 150px;
+	width: 150px;
+	background-color: #bbb;
+	border-radius: 50%;
+	display: inline-block;
+	margin: auto;
+}
+
+
+
+
+
+
+
