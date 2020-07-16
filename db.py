@@ -6,6 +6,7 @@ client = pymongo.MongoClient('mongodb+srv://admin:hello@moola.wwfq4.mongodb.net/
 db = client.db
 users = db.users
 stocks = db.stocks
+stockMap = db.stockMap
 
 def findUser(username):
 	user = users.find_one({'username' : username})
@@ -34,3 +35,18 @@ def getSentiment(query):
 		print("Couldn't find ", query, " in db")
 		addSentiment(query)
 		return stocks.find_one({"name" : query})
+
+def findStockSymbol(query):
+	name_res = stockMap.find({"name": {"$regex": query, "$options" : 'i'}})
+	sym_res = stockMap.find({"symbol": {"$regex": query, "$options" : 'i'}})
+	nick_res = stockMap.find({"nickname": {"$regex": query, "$options" : 'i'}})
+	name_res_list = [entry for entry in name_res]
+	sym_res_list = [entry for entry in sym_res]
+	nick_res_list = [entry for entry in nick_res]
+	res = set(name_res_list + sym_res_list + nick_res_list)
+	return res[0]
+
+def getAllStocks():
+	res = stockMap.find()
+	return [{"symbol" : entry["symbol"], "name" : entry["name"], "nickname" : entry["nickname"]} for entry in res]
+
