@@ -25,7 +25,7 @@
                                 id="query_select"
                                 data-live-search="true">
                             {% for item in keywords %}
-                                <option data-tokens="{{ item.keywords }}" value="{{ item.symbol }}">{{item.name}}</option>
+                                <option data-tokens="{{ item.data_tokens }}" value="{{ item.symbol }}">{{item.name}}</option>
                             {% endfor %}
                         </select>
                     </div>
