@@ -34,13 +34,16 @@ def login():
 
 #TODO: registration page
 
+
 #TODO: route to dashboard
+
 @app.route('/dashboard')
 def dashboard():
-	if 'username' in session:
-		return render_template('dashboard.html')
-
-	return "User not logged in"
+    if 'username' in session:
+        stockList = db.getAllStocks()
+        keywords = [{"data_tokens" : [elem["name"]] + [elem["symbol"]] + elem["nickname"].split(","), "name" : elem["name"], "symbol" : elem["symbol"]} for elem in stockList]
+        return render_template('dashboard.html')
+    return "User not logged in"
 
 
 @app.route('/query_stock_sentiment')
