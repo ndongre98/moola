@@ -24,11 +24,9 @@
                                 title="Select stocks of interest"
                                 id="query_select"
                                 data-live-search="true">
-                          <option data-tokens="google" value="google">Google</option>
-                          <option data-tokens="apple" value="apple">Apple</option>
-                          <option data-tokens="tesla" value="tesla">Tesla</option>
-                          <option data-tokens="shopify" value="shopify">Shopify</option>
-                          <option data-tokens="bny mellon" value="bny mellon">BNY Mellon</option>
+                            {% for item in keywords %}
+                                <option data-tokens="{{ item.keywords }}" value="{{ item.symbol }}">{{item.name}}</option>
+                            {% endfor %}
                         </select>
                     </div>
                 </form>

@@ -39,10 +39,11 @@ def login():
 
 @app.route('/dashboard')
 def dashboard():
+    concat = (lambda x,y,z: x + "," + y + "," + z)
     if 'username' in session:
         stockList = db.getAllStocks()
-        keywords = [{"data_tokens" : [elem["name"]] + [elem["symbol"]] + elem["nickname"].split(","), "name" : elem["name"], "symbol" : elem["symbol"]} for elem in stockList]
-        return render_template('dashboard.html')
+        keywords = [{"data_tokens" : concat(elem["name"], elem["symbol"], elem["nickname"]), "name" : elem["name"], "symbol" : elem["symbol"]} for elem in stockList]
+        return render_template('dashboard.html', keywords=keywords)
     return "User not logged in"
 
 
