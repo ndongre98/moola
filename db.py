@@ -1,12 +1,21 @@
 import json
 import pymongo
 import train
+import stocks as st
+from dotenv import load_dotenv
+load_dotenv()
+import os
+db_key = os.environ.get("MONGO_KEY")
 
-client = pymongo.MongoClient('mongodb+srv://admin:hello@moola.wwfq4.mongodb.net/sample?retryWrites=true&w=majority')
+client = pymongo.MongoClient(db_key)
 db = client.db
 users = db.users
 stocks = db.stocks
 stockMap = db.stockMap
+stockCharts = db.stockCharts
+
+def getDB():
+	return db
 
 def findUser(username):
 	user = users.find_one({'username' : username})
@@ -20,7 +29,6 @@ def addUser(username, password):
 	users.insert_one(new_user)
 
 def addSentiment(query):
-	stocks = db.stocks
 	analysis_obj = train.train(query)
 	if (analysis_obj):
 		stocks.insert_one(analysis_obj)
@@ -49,4 +57,19 @@ def findStockSymbol(query):
 def getAllStocks():
 	res = stockMap.find()
 	return [{"symbol" : entry["symbol"], "name" : entry["name"], "nickname" : entry["nickname"]} for entry in res]
+
+def addStockChart(symbol):
+	chartData = st.readChart()
+	elem = {"symbol" : symbol, "data" : chartData}
+	stockCharts.insert_one(elem)
+
+def findStockChart(symbol):
+	res = stockCharts.find_one({"symbol" : symbol})
+	if (res):
+		return res["data"]
+	else:
+		print("Couldn't find stock data for ", symbol, " in db")
+		addStockChart(symbol)
+		return stockCharts.find_one({"symbol" : symbol})
+
 

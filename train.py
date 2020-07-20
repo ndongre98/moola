@@ -7,6 +7,12 @@ from ibm_watson.natural_language_understanding_v1 import Features, KeywordsOptio
 from datetime import datetime as dt
 import numpy as np
 
+from dotenv import load_dotenv
+load_dotenv()
+import os
+api_key = os.environ.get("ALCHEMY_API_KEY")
+api_url = os.environ.get("NLP_SERVICE_URL")
+
 def get_search_results(url):
 	r1 = requests.get(url)
 	soup = BeautifulSoup(r1.content, 'html5lib')
@@ -53,13 +59,13 @@ def conv_to_json(scores, query):
 
 def train(query):
 	url_list = compile_urls(query)
-	authenticator = IAMAuthenticator('B4gRkFOWYc5_eYYYn8XI8xQ71i-RYwZhPypLWGVHC0Mt')
+	authenticator = IAMAuthenticator(api_key)
 	natural_language_understanding = NaturalLanguageUnderstandingV1(
 	    version='2019-07-12',
 	    authenticator=authenticator
 	)
 
-	natural_language_understanding.set_service_url('https://api.us-east.natural-language-understanding.watson.cloud.ibm.com/instances/07cd83f0-fcf2-4fd1-83ca-78ba482f1c3a/v1/analyze?version=2019-07-12')
+	natural_language_understanding.set_service_url(api_url)
 
 	avg_scores_list = []
 	for addr in url_list:

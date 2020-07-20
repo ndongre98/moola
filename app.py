@@ -4,8 +4,13 @@ import pymongo
 import db
 import json
 
+from dotenv import load_dotenv
+load_dotenv()
+import os
+key = os.environ.get("APP_SECRET_KEY")
+
 app = Flask(__name__)
-app.secret_key = b'9\xbb\xa7\xac\xac\xbci?\xe4\xc3\x13\xb8y\xf0\xd2!'
+app.secret_key = key
 
 @app.route('/')
 def index():
@@ -36,7 +41,6 @@ def login():
 
 
 #TODO: route to dashboard
-
 @app.route('/dashboard')
 def dashboard():
     concat = (lambda x,y,z: x + "," + y + "," + z)
@@ -47,13 +51,15 @@ def dashboard():
     return "User not logged in"
 
 
-@app.route('/query_stock_sentiment')
+@app.route('/query_stock_info')
 def query_stock_sentiment():
-    query = request.args.get("query", '', type=str).lower()
-    response = db.getSentiment(query)
-    del response["_id"]
+    query = request.args.get("query", '', type=str)
+    print("querying...", query)
+    senti_response = db.getSentiment(query)
+    del senti_response["_id"]
+    stock_response = db.findStockChart(query)
+    response = {"symbol" : query, "sentiment_analysis" : senti_response, "chart_data" : stock_response}
     return json.dumps(response, default=str)
-
 
 
 

@@ -19,8 +19,9 @@
 }
 
 .container-custom {
-	margin-left: 50px!important;
-	margin-right: 50px!important;
+	padding-left: 50px!important;
+	padding-right: 50px!important;
+	max-width: -webkit-fill-available!important;
 }
 
 .select-form {
@@ -29,7 +30,7 @@
 }
 
 .select-form form {
-	width: 100%;
+	width: 50%;
 }
 
 .select-form div {
@@ -62,12 +63,18 @@
 .circle {
 	height: 150px;
 	width: 150px;
-	background-color: #bbb;
+	background-color: #FFC700;
 	border-radius: 50%;
 	display: inline-block;
 	margin: auto;
 }
 
+.senti-font {
+	color: #fff;
+	font-size: 56px;
+	margin-top: 30px;
+	font-weight: 500;
+}
 
 
 
