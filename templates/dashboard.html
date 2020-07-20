@@ -61,7 +61,15 @@
             sent = data["sentiment_analysis"]
             values = [sent['sadness'], sent['joy'], sent['fear'], sent['disgust'], sent['anger']];
 
-            senti_elem = '<div class="circle"><p class="senti-font">' + sent["sentiment"].toFixed(2) + '</p></div>';
+            colorClass = "red";
+            if (sent["sentiment"] < -0.33) {
+                colorClass = "red";
+            }
+            else if (sent["sentiment"] > .33) {
+                colorClass = "green";
+            }
+
+            senti_elem = '<div class="circle ' + colorClass + '"><p class="senti-font">' + sent["sentiment"].toFixed(2) + '</p></div>';
             $('#sentiment-graph-container').html(senti_elem)
 
             $('#positivity-graph-container').highcharts({

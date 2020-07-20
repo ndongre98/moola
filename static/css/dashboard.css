@@ -63,10 +63,21 @@
 .circle {
 	height: 150px;
 	width: 150px;
-	background-color: #FFC700;
 	border-radius: 50%;
 	display: inline-block;
 	margin: auto;
+}
+
+.yellow {
+	background-color: #FFC700;
+}
+
+.red {
+	background-color: #fc4903;
+}
+
+.green {
+	background-color: #00e31a;
 }
 
 .senti-font {
