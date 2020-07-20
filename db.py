@@ -1,6 +1,7 @@
 import json
 import pymongo
 import train
+import bcrypt
 import stocks as st
 from dotenv import load_dotenv
 load_dotenv()
@@ -17,14 +18,15 @@ stockCharts = db.stockCharts
 def getDB():
 	return db
 
-def findUser(username):
+def findUser(username, password):
 	user = users.find_one({'username' : username})
-	return (user != None)
+	return user and bcrypt.checkpw(password.encode('utf-8'), user["password"])
 
 def addUser(username, password):
+	hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 	new_user = {
 	  "username": username,
-	  "password": password,
+	  "password": hashed,
 	}
 	users.insert_one(new_user)
 

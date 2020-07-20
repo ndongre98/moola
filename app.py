@@ -23,22 +23,27 @@ def index():
 #TODO: password encryption
 @app.route('/login', methods=['POST'])
 def login():
-    if (db.findUser(request.form['username'])):
-    	session['username'] = request.form['username']
-    	return redirect(url_for('dashboard'))
-        #hashed = request.form['pass'].encode('utf-8')
-        #if bcrypt.hashpw(hashed, login_user['password']) == login_user['password']:
-        # if request.form['pass'] == login_user['password']: 
-        #     session['username'] = request.form['username']
-        #     return redirect(url_for('index'))
+    if (db.findUser(request.form['username'], request.form['password'])):
+        session['username'] = request.form['username']
+        return redirect(url_for('dashboard'))
 
     #TODO: Have some sort of logic to let user know the username/password was invalid
     print("Cannot find user")
     return 'Invalid username/password combination'
 
-
 #TODO: registration page
+@app.route('/register')
+def register():
+    return render_template('register.html')
 
+@app.route('/registration', methods=['POST'])
+def registration():
+    username, password = request.form['username'], request.form['password']
+    db.addUser(username, password)
+    session['username'] = request.form['username']
+    return redirect(url_for('dashboard'))
+
+    #TODO: Some sort of logic to prevent logging in with a username that already exists
 
 #TODO: route to dashboard
 @app.route('/dashboard')
