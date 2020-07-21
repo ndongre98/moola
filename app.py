@@ -38,12 +38,14 @@ def register():
 
 @app.route('/registration', methods=['POST'])
 def registration():
-    username, password = request.form['username'], request.form['password']
+    username = request.form["username"]
+    password = request.form["password"]
+    print(username, password)
+    if (db.userExists(username)):
+        return json.dumps({"status" : True})
     db.addUser(username, password)
     session['username'] = request.form['username']
-    return redirect(url_for('dashboard'))
-
-    #TODO: Some sort of logic to prevent logging in with a username that already exists
+    return json.dumps({"status" : False})
 
 #TODO: route to dashboard
 @app.route('/dashboard')

@@ -8,22 +8,23 @@
         <div class="col-md-6">
             <div class="form-content">
                 <h2 style="margin-bottom: 20px">register</h2>
-                <form method=POST action="{{ url_for('registration') }}">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="username" placeholder="Enter your username">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="username" placeholder="Enter your username">
+                    <div id="username-feedback">
+                        {{ message }}
                     </div>
-                    <div class="form-group">
-                        <input type="password" id="password" class="form-control" name="password" placeholder="Enter your password">
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password" class="form-control" name="password" placeholder="Enter your password">
+                </div>
+                <!-- TODO: Client-side verification that passwords match -->
+                <div class="form-group">
+                    <input type="password" id="conf-password" class="form-control" name="conf_password" placeholder="Re-enter your password">
+                    <div id="feedback">
+                        
                     </div>
-                    <!-- TODO: Client-side verification that passwords match -->
-                    <div class="form-group">
-                        <input type="password" id="conf-password" class="form-control" name="conf_password" placeholder="Re-enter your password">
-                        <div id="feedback">
-                            
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-warning btn-block">Create Account</button>
-                </form>
+                </div>
+                <button id="register-btn" type="submit" class="btn btn-warning btn-block">Create Account</button>
             </div>
         </div>
     </div>
@@ -31,7 +32,6 @@
 <script>
     $(function() {
         $('input#conf-password').bind('keyup', function() {
-            console.log($('input#conf-password').val(), $('input#password').val());
             conf_val = $('input#conf-password').val();
             og_val = $('input#password').val();
 
@@ -56,5 +56,31 @@
             }
         });
     });
+
+    $('button#register-btn').bind('click', function() {
+        $.post($SCRIPT_ROOT + '/registration', {
+            "username": $('input[name="username"]').val(),
+            "password": $('input[name="password"]').val(),
+        }, function(data, textStatus) {
+            if (data["status"]) {
+                $('input[name=username]').addClass("is-invalid");
+                $("div#username-feedback").addClass("invalid-feedback");
+                $("div#username-feedback").text("User with this username already exists.");
+            } else {
+                $(location).attr('href', $SCRIPT_ROOT + '/dashboard')
+            }
+        }, "json");
+    });
+
+    $(function() {
+        $('input[name="username"]').bind('keyup', function() {
+            conf_val = $('input#conf-password').val();
+            og_val = $('input#password').val();
+            $('input[name=username]').removeClass("is-invalid");
+            $("div#username-feedback").removeClass("invalid-feedback");
+            $("div#username-feedback").text("");
+        });
+    });
+
 </script>
 {% endblock%}

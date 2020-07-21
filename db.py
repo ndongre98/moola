@@ -18,6 +18,10 @@ stockCharts = db.stockCharts
 def getDB():
 	return db
 
+def userExists(username):
+	user = users.find_one({'username' : username})
+	return user
+
 def findUser(username, password):
 	user = users.find_one({'username' : username})
 	return user and bcrypt.checkpw(password.encode('utf-8'), user["password"])
