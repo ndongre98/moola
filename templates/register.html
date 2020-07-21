@@ -7,17 +7,20 @@
         </div>
         <div class="col-md-6">
             <div class="form-content">
-                <h2>register</h2>
+                <h2 style="margin-bottom: 20px">register</h2>
                 <form method=POST action="{{ url_for('registration') }}">
                     <div class="form-group">
                         <input type="text" class="form-control" name="username" placeholder="Enter your username">
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" name="password" placeholder="Enter your password">
+                        <input type="password" id="password" class="form-control" name="password" placeholder="Enter your password">
                     </div>
                     <!-- TODO: Client-side verification that passwords match -->
                     <div class="form-group">
-                        <input type="password" class="form-control" name="conf_password" placeholder="Re-enter your password">
+                        <input type="password" id="conf-password" class="form-control" name="conf_password" placeholder="Re-enter your password">
+                        <div id="feedback">
+                            
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-warning btn-block">Create Account</button>
                 </form>
@@ -25,4 +28,33 @@
         </div>
     </div>
 </div>
+<script>
+    $(function() {
+        $('input#conf-password').bind('keyup', function() {
+            console.log($('input#conf-password').val(), $('input#password').val());
+            conf_val = $('input#conf-password').val();
+            og_val = $('input#password').val();
+
+            if (conf_val === '') {
+                $("input#conf-password").removeClass("is-invalid");
+                $("input#conf-password").removeClass("is-valid");
+                $("div#feedback").removeClass("invalid-feedback");
+                $("div#feedback").removeClass("valid-feedback");
+                $("div#feedback").text("");              
+            } else if (conf_val !== og_val) {
+                $("input#conf-password").addClass("is-invalid");
+                $("input#conf-password").removeClass("is-valid");
+                $("div#feedback").addClass("invalid-feedback");
+                $("div#feedback").removeClass("valid-feedback");
+                $("div#feedback").text("Your re-entered password does not match.");
+            } else {
+                $("input#conf-password").removeClass("is-invalid");
+                $("input#conf-password").addClass("is-valid");  
+                $("div#feedback").removeClass("invalid-feedback");
+                $("div#feedback").addClass("valid-feedback");
+                $("div#feedback").text("");
+            }
+        });
+    });
+</script>
 {% endblock%}
