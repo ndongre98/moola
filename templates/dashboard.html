@@ -2,15 +2,16 @@
 {% block body%}
 <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-custom">
     <a href="#" class="navbar-brand d-flex w-50 mr-auto" style="margin-left: 30px">moola</a>
-    <ul class="navbar-nav ml-auto w-100 justify-content-end" style="margin-right: 50px">
-        <li class="nav-item dropdown btn btn-light">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{ session["username"] }}
+    <ul class="navbar-nav ml-auto w-100 justify-content-end">
+        <li class="nav-item dropdown">
+            <span class="inline-span"><div class="circletag">&nbsp;</div></span>
+            <a class="nav-link dropdown-toggle inline-span" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span>{{ session["username"] }}</span>
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Log Out</a>
+              <a class="dropdown-item" href="#">Sign Out</a>
             </div>
-        </li>
+      </li>
     </ul>
 </nav>
 <div class="container container-custom text-center">
@@ -47,19 +48,21 @@
 	</div>
 </div>
 
+{% include "about_modal.html" %}
+
 <div class="footer">
   <div class="row align-items-center">
     <div class="col-md-4">
         <!-- TODO: Modal for About and Cookie Policy -->
-        <a href="###">About</a>
-        <a href="###">Cookies</a>
-        <a href="https://github.com/ndongre98/moola">GitHub</a>
+        <button type="button" class="btn footer-btn" data-toggle="modal" data-target="#myModal">About</button>
+        <button type="button" class="btn footer-btn" id="github-btn">GitHub</button>
+        <button type="button" class="btn footer-btn" id="contact-btn">Contact</button>
     </div>
     <div class="col-md-4">
         ©2020, moola
     </div>
     <div class="col-md-4">
-        Made with love by <a href="https://www.namitadongre.me/">Namita Dongre</a> 
+        Made with love by <a noopener noreferrer target="_blank" href="https://www.namitadongre.me/">Namita Dongre</a> 
     </div>
   </div>
 </div>
@@ -70,6 +73,14 @@
       cache:false
     });
 
+    $("button#github-btn").bind('click', function () {
+        window.open("https://github.com/ndongre98/moola", '_blank');
+    });
+    
+    $("button#contact-btn").bind('click', function () {
+        window.open("https://t.me/ndongre", '_blank');
+    });
+    
     $(function() {
         $('select#query_select').bind('change', function() {
           $.getJSON($SCRIPT_ROOT + '/query_stock_info', {

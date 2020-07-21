@@ -15,8 +15,41 @@
 /* change the color of active or hovered links */
 .navbar-custom .nav-item.active .nav-link,
 .navbar-custom .nav-item:hover .nav-link {
-    color: red;
+    color: black;
 }
+
+li {
+	background-color: white;
+	border-radius: 10px;
+	width: fit-content;
+}
+
+li .nav-link {
+	font-weight: 700;
+	color: black!important;
+	margin-left: 0px!important;
+	margin-right: 18px!important;
+	font-size: 20px;
+	margin-top: 2px;
+}
+
+.circletag {
+    display: block;
+    width: 50px;
+    height: 50px;
+    background: white;
+    -moz-border-radius: 25px;
+    -webkit-border-radius: 25px;
+    background-image: url('../img/coins.png');
+    background-position:50% 50%;
+    background-repeat:no-repeat;    
+}
+
+.inline-span {
+	float:left;
+	margin-left: 10px!important;
+}
+
 
 .container-custom {
 	padding-left: 50px!important;
@@ -42,15 +75,10 @@
 	border: 1px solid black;
 }
 
-.btn {
-	border-radius: 30px;
-	width: 200px;
-}
-
-
+/*
 .nav-item .dropdown-menu {
 	margin-left: 20px;
-}
+}*/
 
 
 #positivity-graph-container {
@@ -104,6 +132,48 @@
 	margin-top: 25px
 }
 
+.footer-btn {
+    background:none!important;
+    border:none; 
+    padding:0!important;
+    font-size: 14px;
+    width:max-content;
+    margin: auto 10px;
+
+    /*optional*/
+    color:#007bff;
+    cursor:pointer;
+}
+
+.footer-button:hover{
+	text-decoration:underline;
+}
+
+@media only screen and (max-width: 992px) {
+  li.nav-item {
+    margin: auto;
+  }
+
+  ul {
+  	text-align: center;
+  }
+
+  li .nav-link {
+  	margin-left: 10px!important;
+  	margin-top: 5px;
+  	font-color: black;
+  }
+
+  .circletag {
+  	margin-top: 5px;
+  }
+
+  .navbar-brand {
+	width: fit-content!important;
+	margin: auto!important;
+  }
 
 
-
+  .select-form form {
+  	width: 100%;
+  }
