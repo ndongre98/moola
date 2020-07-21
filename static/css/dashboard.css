@@ -87,7 +87,22 @@
 	font-weight: 500;
 }
 
+.footer {
+   position: fixed;
+   min-height: 70px;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: black;
+   color: white;
+   text-align: center;
+   font-size: 14px;
+   padding-bottom: 20px;
+}
 
+.footer .col-md-4 {
+	margin-top: 25px
+}
 
 
 
