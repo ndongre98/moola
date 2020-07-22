@@ -8,21 +8,76 @@
         <div class="col-md-6">
             <div class="form-content">
                 <h2>sign in</h2>
-                <form method=POST action="{{ url_for('login') }}">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="username" placeholder="Enter your username">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="username" placeholder="Enter your username">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" name="password" placeholder="Enter your password">
+                    <div id="feedback">
+
                     </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control" name="password" placeholder="Enter your password">
-                    </div>
-                    <button type="submit" class="btn btn-warning btn-block">Log In</button>
-                </form>
+                </div>
+                <button id="login" type="submit" disabled class="btn btn-warning btn-block">Log In</button>
                 <form style="margin-top:20px" action="{{ url_for('register') }}">
                     <label>Don't have an account?</label>
-                    <button type="submit" class="btn btn-success btn-block">Register</button>
+                    <button id="register" type="submit" class="btn btn-success btn-block">Register</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+<script>
+    $(function () {
+        $('button#login').bind('click', function () {
+            $.post($SCRIPT_ROOT + '/login', {
+                "username": $('input[name="username"]').val(),
+                "password": $('input[name="password"]').val(),
+            }, function(data, textStatus) {
+                if (!data["status"]) {
+                    $('input[name=username]').addClass("is-invalid");
+                    $('input[name=password]').addClass("is-invalid");
+                    $("div#feedback").addClass("invalid-feedback");
+                    $("div#feedback").text("Invalid username/password combo.");
+                } else {
+                    $(location).attr('href', $SCRIPT_ROOT + '/dashboard')
+                }
+            }, "json");
+        });
+    });
+
+    $(function() {
+        $('input[name=username]').bind('keyup', function() {
+            $('input[name=username]').removeClass("is-invalid");
+            $('input[name=password]').removeClass("is-invalid");
+            $("div#feedback").removeClass("invalid-feedback");
+            $("div#feedback").text("");
+
+            username = $('input[name=username]').val();
+            password = $('input[name=password]').val();
+
+            if (username.length == 0 || password.length == 0 ) {
+                $('button#login').prop('disabled', true);
+            } else {
+                $('button#login').prop('disabled', false);   
+            }
+        });
+
+        $('input[name=password]').bind('keyup', function() {
+            $('input[name=username]').removeClass("is-invalid");
+            $('input[name=password]').removeClass("is-invalid");
+            $("div#feedback").removeClass("invalid-feedback");
+            $("div#feedback").text("");
+
+            username = $('input[name=username]').val();
+            password = $('input[name=password]').val();
+
+            if (username.length == 0 || password.length == 0 ) {
+                $('button#login').prop('disabled', true);
+            } else {
+                $('button#login').prop('disabled', false);   
+            }
+        });
+    });
+
+</script>
 {% endblock%}

@@ -24,7 +24,6 @@ def userExists(username):
 
 def findUser(username, password):
 	user = users.find_one({'username' : username})
-	print("findUser: ", password, user["password"])
 	return user and bcrypt.checkpw(password.encode('utf-8'), user["password"])
 
 def addUser(username, password):

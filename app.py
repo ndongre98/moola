@@ -20,18 +20,13 @@ def index():
         year=dt.now().year,
     )
 
-#TODO: password encryption
 @app.route('/login', methods=['POST'])
 def login():
     if (db.findUser(request.form['username'], request.form['password'])):
         session['username'] = request.form['username']
-        return redirect(url_for('dashboard'))
+        return json.dumps({"status" : True})
+    return json.dumps({"status" : False})
 
-    #TODO: Have some sort of logic to let user know the username/password was invalid
-    print("Cannot find user")
-    return 'Invalid username/password combination'
-
-#TODO: registration page
 @app.route('/register')
 def register():
     return render_template('register.html')
