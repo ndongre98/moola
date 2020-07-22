@@ -6,7 +6,7 @@ import stocks as st
 from dotenv import load_dotenv
 load_dotenv()
 import os
-db_key = os.environ.get("MONGO_KEY")
+db_key = os.environ["MONGO_KEY"]
 
 client = pymongo.MongoClient(db_key)
 db = client.db

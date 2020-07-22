@@ -3,7 +3,7 @@ import json
 from dotenv import load_dotenv
 load_dotenv()
 import os
-api_key = os.environ.get("YAHOO_FINANCE_API_KEY")
+api_key = os.environ["YAHOO_FINANCE_API_KEY"]
 
 url = "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-chart"
 headers = {

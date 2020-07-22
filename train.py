@@ -10,8 +10,8 @@ import numpy as np
 from dotenv import load_dotenv
 load_dotenv()
 import os
-api_key = os.environ.get("ALCHEMY_API_KEY")
-api_url = os.environ.get("NLP_SERVICE_URL")
+api_key = os.environ["ALCHEMY_API_KEY"]
+api_url = os.environ["NLP_SERVICE_URL"]
 
 def get_search_results(url):
 	r1 = requests.get(url)

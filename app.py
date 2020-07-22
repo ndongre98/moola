@@ -7,7 +7,7 @@ import json
 from dotenv import load_dotenv
 load_dotenv()
 import os
-key = os.environ.get("APP_SECRET_KEY")
+key = os.environ["APP_SECRET_KEY"]
 
 app = Flask(__name__)
 app.secret_key = key
