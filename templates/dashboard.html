@@ -30,18 +30,24 @@
             </div>
         </form>
     </div>
+    <div class="row text-center align-items-center">
+        <div class="col text-center">
+            <div class="loader"></div>
+        </div>
+    </div>
 	<div class="row align-items-center">
-		<div class="col-md-6">
+		<div class="col-md-6 content">
             <div class="row text-center">
                 <div id="graph-container" style="width: 90%; height: 300px; margin: 50px auto auto">
                 </div>
             </div>
 		</div>
-		<div class="col-md-4 text-center" style="margin-top: 50px">
+		<div class="col-md-4 text-center content" style="margin-top: 50px">
 			<div id="positivity-graph-container" style="margin: auto">
 			</div>
 		</div>
-		<div class="col-md-2 text-center" style="margin-top: 50px">
+		<div class="col-md-2 text-center content" style="margin-top: 50px">
+            <p class="senti-label"></p>
 			<div id="sentiment-graph-container">
 			</div>
 		</div>
@@ -62,7 +68,7 @@
         ©2020, moola
     </div>
     <div class="col-md-4">
-        Made with love by <a noopener noreferrer target="_blank" href="https://www.namitadongre.me/">Namita Dongre</a> 
+        Made with <i class="fa fa-heart" aria-hidden="true"></i> by <a noopener noreferrer target="_blank" href="https://www.namitadongre.me/">Namita Dongre</a> 
     </div>
   </div>
 </div>
@@ -82,10 +88,18 @@
     });
     
     $(function() {
+        $('div.loader').css('display', 'none');        
+
         $('select#query_select').bind('change', function() {
+          $('div.content').css('display', 'none');
+          $('div.loader').css('display', 'block');
+
           $.getJSON($SCRIPT_ROOT + '/query_stock_info', {
             query: $('select[name="query_select"]').val(),
           }, function(data) {
+            $('div.content').css('display', 'block');
+            $('div.loader').css('display', 'none');
+
             sent = data["sentiment_analysis"]
             values = [sent['sadness'], sent['joy'], sent['fear'], sent['disgust'], sent['anger']];
 
@@ -98,7 +112,9 @@
             }
 
             senti_elem = '<div class="circle ' + colorClass + '"><p class="senti-font">' + sent["sentiment"].toFixed(2) + '</p></div>';
+            $('p.senti-label').text('Sentiment Score');
             $('#sentiment-graph-container').html(senti_elem)
+
 
             $('#positivity-graph-container').highcharts({
                 chart: {
@@ -116,7 +132,7 @@
                     lineWidth: 0,
                     min: 0
                 },
-                title: {text: '' },
+                title: {text: 'Emotional Analysis' },
                 series: [{
                     showInLegend: false, 
                     name: 'Emotional Analysis',
@@ -133,6 +149,7 @@
                 rangeSelector: {
                     selected: 1
                 },
+                title: {text: data["symbol"] + ' Stock Chart'},
                 series: [{
                     name: data["symbol"],
                     data: data["chart_data"],

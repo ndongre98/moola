@@ -115,6 +115,12 @@ li .nav-link {
 	font-weight: 500;
 }
 
+.senti-label {
+	font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	margin-top: -108px;
+}
+
 .footer {
    position: fixed;
    min-height: 70px;
@@ -149,6 +155,21 @@ li .nav-link {
 	text-decoration:underline;
 }
 
+.loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #bdbdbd; /* Grey */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+  margin: auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 @media only screen and (max-width: 992px) {
   li.nav-item {
     margin: auto;
@@ -177,3 +198,8 @@ li .nav-link {
   .select-form form {
   	width: 100%;
   }
+
+  .senti-label {
+  	margin-top: 0px;
+  }
+}
