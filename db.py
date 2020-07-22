@@ -24,6 +24,7 @@ def userExists(username):
 
 def findUser(username, password):
 	user = users.find_one({'username' : username})
+	print("findUser: ", password, user["password"])
 	return user and bcrypt.checkpw(password.encode('utf-8'), user["password"])
 
 def addUser(username, password):
@@ -76,6 +77,7 @@ def findStockChart(symbol):
 	else:
 		print("Couldn't find stock data for ", symbol, " in db")
 		addStockChart(symbol)
-		return stockCharts.find_one({"symbol" : symbol})
+		res = stockCharts.find_one({"symbol" : symbol})
+		return res["data"]
 
 
