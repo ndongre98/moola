@@ -25,6 +25,8 @@
                     </div>
                 </div>
                 <button id="register-btn" disabled type="submit" class="btn btn-warning btn-block">Create Account</button>
+                <label style="margin-top: 15px">Already have an account?</label>
+                <button id="login-btn" type="submit" class="btn btn-success btn-block">Log In</button>
                 <button type="button" class="btn footer-btn" data-toggle="modal" data-target="#myModal" style="margin: 10px auto; font-size: 16px">Wanna learn more?</button>
             </div>
         </div>
@@ -79,9 +81,13 @@
                 $("div#username-feedback").addClass("invalid-feedback");
                 $("div#username-feedback").text("User with this username already exists.");
             } else {
-                $(location).attr('href', $SCRIPT_ROOT + '/dashboard')
+                $(location).attr('href', $SCRIPT_ROOT + '/dashboard');
             }
         }, "json");
+    });
+
+    $('button#login-btn').bind('click', function() {
+        $(location).attr('href', $SCRIPT_ROOT + '/');
     });
 
     $(function() {
