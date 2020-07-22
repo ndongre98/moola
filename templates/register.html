@@ -23,7 +23,7 @@
                         
                     </div>
                 </div>
-                <button id="register-btn" type="submit" class="btn btn-warning btn-block">Create Account</button>
+                <button id="register-btn" disabled type="submit" class="btn btn-warning btn-block">Create Account</button>
             </div>
         </div>
     </div>
@@ -53,6 +53,17 @@
                 $("div#feedback").addClass("valid-feedback");
                 $("div#feedback").text("");
             }
+
+            username = $('input[name=username]').val();
+            password = $('input[name=password]').val();
+            conf = $('input[name=conf_password]').val();
+
+            if (username.length && password.length && conf.length) {
+                $('button#register-btn').prop('disabled', false);
+            } else {
+                $('button#register-btn').prop('disabled', true);
+            }
+
         });
     });
 
@@ -76,6 +87,29 @@
             $('input[name=username]').removeClass("is-invalid");
             $("div#username-feedback").removeClass("invalid-feedback");
             $("div#username-feedback").text("");
+
+            username = $('input[name=username]').val();
+            password = $('input[name=password]').val();
+            conf = $('input[name=conf_password]').val();
+
+            if (username.length && password.length && conf.length) {
+                $('button#register-btn').prop('disabled', false);
+            } else {
+                $('button#register-btn').prop('disabled', true);
+            }
+        });
+
+        $('input[name="password"]').bind('keyup', function() {
+            username = $('input[name=username]').val();
+            password = $('input[name=password]').val();
+            conf = $('input[name=conf_password]').val();
+
+            if (username.length && password.length && conf.length) {
+                $('button#register-btn').prop('disabled', false);
+            } else {
+                $('button#register-btn').prop('disabled', true);
+            }
+
         });
     });
 
