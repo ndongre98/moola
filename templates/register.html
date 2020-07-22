@@ -1,5 +1,6 @@
 {% extends "layout.html"%}
 {% block body%}
+{% include "about_modal.html" %}
 <div class="container-fluid remove-padding">
     <div class="row content text-center remove-margin align-items-center">
         <div class="col-md-6 logo-space remove-padding">
@@ -24,6 +25,7 @@
                     </div>
                 </div>
                 <button id="register-btn" disabled type="submit" class="btn btn-warning btn-block">Create Account</button>
+                <button type="button" class="btn footer-btn" data-toggle="modal" data-target="#myModal" style="margin: 10px auto; font-size: 16px">Wanna learn more?</button>
             </div>
         </div>
     </div>

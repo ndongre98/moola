@@ -1,5 +1,6 @@
 {% extends "layout.html"%}
 {% block body%}
+{% include "about_modal.html" %}
 <div class="container-fluid remove-padding">
     <div class="row content text-center remove-margin align-items-center">
         <div class="col-md-6 logo-space remove-padding">
@@ -21,6 +22,7 @@
                 <form style="margin-top:20px" action="{{ url_for('register') }}">
                     <label>Don't have an account?</label>
                     <button id="register" type="submit" class="btn btn-success btn-block">Register</button>
+                    <button type="button" class="btn footer-btn" data-toggle="modal" data-target="#myModal" style="margin: 10px auto; font-size: 16px">Wanna learn more?</button>
                 </form>
             </div>
         </div>
