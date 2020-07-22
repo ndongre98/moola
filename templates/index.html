@@ -71,10 +71,10 @@
             username = $('input[name=username]').val();
             password = $('input[name=password]').val();
 
-            if (username.length == 0 || password.length == 0 ) {
-                $('button#login').prop('disabled', true);
+            if (username.length && password.length) {
+                $('button#login').prop('disabled', false);
             } else {
-                $('button#login').prop('disabled', false);   
+                $('button#login').prop('disabled', true);   
             }
         });
     });
