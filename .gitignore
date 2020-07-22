@@ -37,3 +37,7 @@ coverage.xml
 
 # env files
 *.env
+
+#local data files
+stockList.csv
+stockList.txt
