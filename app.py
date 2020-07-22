@@ -42,7 +42,6 @@ def registration():
     session['username'] = request.form['username']
     return json.dumps({"status" : False})
 
-#TODO: route to dashboard
 @app.route('/dashboard')
 def dashboard():
     concat = (lambda x,y,z: x + "," + y + "," + z)
@@ -63,5 +62,7 @@ def query_stock_sentiment():
     response = {"symbol" : query, "sentiment_analysis" : senti_response, "chart_data" : stock_response}
     return json.dumps(response, default=str)
 
-
-
+@app.route('/logout')
+def logout():
+    session.pop('username')
+    return redirect(url_for('index'))

@@ -9,7 +9,7 @@
                 <span>{{ session["username"] }}</span>
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Sign Out</a>
+              <a class="dropdown-item" href="{{ url_for('index') }}">Sign Out</a>
             </div>
       </li>
     </ul>
