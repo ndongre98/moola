@@ -73,8 +73,6 @@
 
     $(function() {
         $('input[name="username"]').bind('keyup', function() {
-            conf_val = $('input#conf-password').val();
-            og_val = $('input#password').val();
             $('input[name=username]').removeClass("is-invalid");
             $("div#username-feedback").removeClass("invalid-feedback");
             $("div#username-feedback").text("");
