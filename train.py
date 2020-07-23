@@ -12,6 +12,8 @@ load_dotenv()
 import os
 api_key = os.environ["ALCHEMY_API_KEY"]
 api_url = os.environ["NLP_SERVICE_URL"]
+search_api_key = os.environ["API_KEY"]
+search_id = os.environ["SEARCH_ENGINE_ID"]
 
 def get_search_results(url):
 	r1 = requests.get(url)
@@ -57,7 +59,35 @@ def conv_to_json(scores, query):
 		"anger" : scores[5]
 	}
 
-def train(query):
+def contextual_news_search(query):
+	url = "https://custom-search.p.rapidapi.com/api/search/CustomNewsSearchAPIV2"
+	querystring = {"searchEngineId":search_id,"q":query,"pageNumber":"1"}
+	headers = {
+	    'x-rapidapi-host': "custom-search.p.rapidapi.com",
+	    'x-rapidapi-key': search_api_key
+	    }
+	data = requests.request("GET", url, headers=headers, params=querystring).json()
+	return [entry["title"] + '\n' + entry["description"] + '\n' + entry["body"] for entry in data["value"]]
+
+def train_contextual(query):
+	res = contextual_news_search(query)
+	authenticator = IAMAuthenticator(api_key)
+	natural_language_understanding = NaturalLanguageUnderstandingV1(
+	    version='2019-07-12',
+	    authenticator=authenticator
+	)
+
+	natural_language_understanding.set_service_url(api_url)
+	avg_scores_list = []
+	for text in res:
+		response = natural_language_understanding.analyze(
+		    text=text,
+		    features=Features(keywords=KeywordsOptions(sentiment=True,emotion=True,limit=2))).get_result()
+		avg_scores_list.append(get_avg_scores_per_entry(response))
+	overall_avg_scores = get_avg_scores(np.array(avg_scores_list))
+	return conv_to_json(overall_avg_scores, query)
+
+def train_bs4(query):
 	url_list = compile_urls(query)
 	authenticator = IAMAuthenticator(api_key)
 	natural_language_understanding = NaturalLanguageUnderstandingV1(
@@ -76,10 +106,7 @@ def train(query):
 	overall_avg_scores = get_avg_scores(np.array(avg_scores_list))
 	return conv_to_json(overall_avg_scores, query)
 
-	
-	
-
-
-
+def train(query, mode=1):
+	return train_contextual(query) if mode else train_bs4(query)	
 
 
