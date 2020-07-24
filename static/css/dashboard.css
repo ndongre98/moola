@@ -54,6 +54,8 @@ li .nav-link {
 	padding-left: 50px!important;
 	padding-right: 50px!important;
 	max-width: -webkit-fill-available!important;
+  min-height: 75vh;
+  margin-bottom: 20px;
 }
 
 .select-form {
@@ -121,7 +123,6 @@ li .nav-link {
 }
 
 .footer {
-   position: fixed;
    min-height: 70px;
    left: 0;
    bottom: 0;

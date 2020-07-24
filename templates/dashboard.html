@@ -103,7 +103,7 @@
             sent = data["sentiment_analysis"]
             values = [sent['sadness'], sent['joy'], sent['fear'], sent['disgust'], sent['anger']];
 
-            colorClass = "red";
+            colorClass = "yellow";
             if (sent["sentiment"] < -0.33) {
                 colorClass = "red";
             }
