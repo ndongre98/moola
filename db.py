@@ -65,7 +65,7 @@ def getAllStocks():
 	return [{"symbol" : entry["symbol"], "name" : entry["name"], "nickname" : entry["nickname"]} for entry in res]
 
 def addStockChart(symbol):
-	chartData = st.readChart()
+	chartData = st.scrapeData(symbol, 1594857600, 1595548800)
 	elem = {"symbol" : symbol, "data" : chartData}
 	stockCharts.insert_one(elem)
 
@@ -79,4 +79,14 @@ def findStockChart(symbol):
 		res = stockCharts.find_one({"symbol" : symbol})
 		return res["data"]
 
+def updateAll():
+	stocks = getAllStocks()
+	for stock in stocks[92:]:
+		symbol = stock["symbol"]
+		addSentiment(symbol)
 
+def getAllStockCharts():
+	stocks = getAllStocks()
+	for stock in stocks:
+		symbol = stock["symbol"]
+		addStockChart(symbol)

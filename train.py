@@ -37,11 +37,12 @@ def get_avg_scores_per_entry(json_response):
 	num = len(json_response["keywords"])
 	for entry in json_response["keywords"]:
 		res[senti] += entry["sentiment"]["score"]
-		res[sad] += entry["emotion"]["sadness"]
-		res[joy] += entry["emotion"]["joy"]
-		res[fear] += entry["emotion"]["fear"]
-		res[disgust] += entry["emotion"]["disgust"]
-		res[anger] += entry["emotion"]["anger"]
+		if "emotion" in entry:
+			res[sad] += entry["emotion"]["sadness"]
+			res[joy] += entry["emotion"]["joy"]
+			res[fear] += entry["emotion"]["fear"]
+			res[disgust] += entry["emotion"]["disgust"]
+			res[anger] += entry["emotion"]["anger"]
 	return [float(res[i])/num for i in range(6)]
 
 def get_avg_scores(avg_scores_list):
